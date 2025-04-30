@@ -1,0 +1,619 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --accent-color: #f39c12;
+    --light-bg: #ecf0f1;
+    --dark-bg: #2c3e50;
+    --text-light: #ffffff;
+    --text-dark: #2c3e50;
+    --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --border-radius: 10px;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    background-color: var(--light-bg);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* Welcome Screen */
+#welcome-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    z-index: 999;
+    animation: fadeOut 2s ease-in-out forwards;
+    animation-delay: 4s;
+    padding: 0 20px;
+    text-align: center;
+}
+
+#welcome-screen h1 {
+    font-size: min(3rem, 15vw);
+    margin-bottom: 1rem;
+    animation: fadeIn 1s ease-in-out;
+}
+
+#welcome-screen p {
+    font-size: min(1.2rem, 5vw);
+    animation: fadeIn 1s ease-in-out;
+    animation-delay: 0.5s;
+    opacity: 0;
+    animation-fill-mode: forwards;
+}
+
+#welcome-screen .author {
+    position: static;
+    font-size: min(0.9rem, 4vw);
+    color: rgba(255, 255, 255, 0.65);
+    font-weight: 300;
+    letter-spacing: 1px;
+    animation: fadeIn 1s ease-in-out;
+    animation-delay: 1s;
+    opacity: 0;
+    animation-fill-mode: forwards;
+    margin-top: 10px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+/* Main App */
+#app {
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    margin: 0 auto;
+    padding-bottom: 60px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Header */
+header {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-size: clamp(1.2rem, 4vw, 1.5rem);
+    font-weight: 600;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Calculator Selection */
+.calculator-select {
+    padding: 15px;
+    background-color: var(--light-bg);
+}
+
+select {
+    width: 100%;
+    padding: 12px 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: white;
+    font-size: 1rem;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23131313%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    background-size: 12px auto;
+}
+
+/* Calculator Container */
+#calculator-container {
+    padding: 15px;
+}
+
+.calculator {
+    width: 100%;
+}
+
+/* Basic Calculator */
+.display {
+    background-color: var(--light-bg);
+    padding: 20px;
+    text-align: right;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 0.5px;
+    word-spacing: 4px;
+}
+
+.previous-operand {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: clamp(0.9rem, 3.5vw, 1.2rem);
+    min-height: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.current-operand {
+    font-size: clamp(1.5rem, 8vw, 2.5rem);
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(6px, 2vw, 10px);
+    padding: 15px;
+}
+
+.keypad button {
+    padding: clamp(10px, 3vw, 15px) clamp(5px, 2vw, 10px);
+    font-size: clamp(1rem, 5vw, 1.3rem);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s;
+    min-height: 45px;
+    touch-action: manipulation;
+}
+
+.keypad button:hover {
+    background-color: #f5f5f5;
+}
+
+.keypad button:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.keypad .clear {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.keypad .operation {
+    background-color: #f1c40f;
+}
+
+.keypad .equals {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.keypad .zero {
+    grid-column: span 2;
+}
+
+/* Converter Styles */
+.converter-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+    background-color: white;
+    border-radius: var(--border-radius);
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.input-group input {
+    flex: 1;
+    min-width: 120px;
+    padding: 12px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.input-group select {
+    width: 100px;
+    min-width: 80px;
+    flex-shrink: 0;
+}
+
+#currency-swap, #unit-swap {
+    align-self: center;
+    background-color: var(--light-bg);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.convert-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    touch-action: manipulation;
+}
+
+.convert-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+h2 {
+    margin-bottom: 15px;
+    font-size: clamp(1.1rem, 5vw, 1.3rem);
+    color: var(--text-dark);
+}
+
+/* History Panel */
+#history-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: min(350px, 100%);
+    height: 100vh;
+    background-color: white;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    padding: 20px;
+    overflow-y: auto;
+    padding-bottom: 70px;
+}
+
+.history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    background-color: var(--primary-color);
+    color: var(--text-light);
+}
+
+.history-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    flex: 1;
+    text-align: center;
+}
+
+#history-back {
+    color: var(--text-light);
+    font-size: 1.5rem;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#clear-history {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 5px 10px;
+}
+
+#clear-history:hover {
+    text-decoration: underline;
+}
+
+.history-item {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.history-content {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.history-calculator {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.history-calculation {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    word-break: break-word;
+}
+
+.history-item small {
+    color: #888;
+    font-size: 0.8rem;
+}
+
+.history-item .delete-item {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 5px;
+    margin-top: 2px;
+    transition: transform 0.2s;
+    min-width: 30px;
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.history-item .delete-item:hover {
+    transform: scale(1.1);
+}
+
+/* Additional calculator styles */
+.calculator h2 {
+    padding: 15px 15px 0;
+}
+
+.calculator-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+}
+
+.calculator-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    font-size: clamp(0.9rem, 4vw, 1rem);
+}
+
+.calculator-form input, 
+.calculator-form select {
+    width: 100%;
+    padding: 12px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.calculator-form .result {
+    background-color: var(--light-bg);
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: clamp(1rem, 4.5vw, 1.2rem);
+    font-weight: bold;
+    margin-top: 10px;
+    word-break: break-word;
+}
+
+.btn-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.btn-row button {
+    flex: 1;
+    padding: 12px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 120px;
+}
+
+.calculate-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.reset-btn {
+    background-color: #e74c3c;
+    color: white;
+}
+
+/* Course row for GPA calculator */
+.course-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.course-row input, 
+.course-row select {
+    flex: 1;
+    min-width: 80px;
+}
+
+.course-row .remove-course {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 5px;
+    min-width: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    
+    .calculator-form {
+        gap: 12px;
+    }
+    
+    .converter-container {
+        gap: 12px;
+    }
+    
+    .input-group {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .input-group select {
+        width: 100%;
+    }
+    
+    #currency-swap, #unit-swap {
+        margin: 5px 0;
+    }
+    
+    .course-row {
+        flex-direction: column;
+        gap: 8px;
+        position: relative;
+        padding-bottom: 10px;
+        border-bottom: 1px dashed #eee;
+    }
+    
+    .course-row .remove-course {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+}
+
+/* Landscape orientation */
+@media (max-height: 500px) and (orientation: landscape) {
+    body {
+        padding: 5px;
+    }
+    
+    .keypad {
+        gap: 5px;
+    }
+    
+    .keypad button {
+        padding: 8px 5px;
+        min-height: 35px;
+    }
+    
+    .display {
+        min-height: 80px;
+        padding: 15px;
+    }
+    
+    #welcome-screen h1 {
+        font-size: min(2.5rem, 10vh);
+    }
+    
+    #welcome-screen p {
+        font-size: min(1rem, 4vh);
+    }
+    
+    .calculator-form {
+        gap: 10px;
+    }
+    
+    .calculator-form .result {
+        padding: 10px;
+    }
+    
+    #history-panel {
+        padding: 15px;
+    }
+}
+
+/* AdMob Container */
+.ad-container {
+    width: 100%;
+    min-height: 50px;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    border-top: 1px solid #ddd;
+    padding: 10px 0;
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+} 

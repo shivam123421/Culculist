@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#2c3e50">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Culculist - Multi-function Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google AdMob SDK -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-12345678910"></script>
+</head>
+<body>
+    <!-- Welcome Screen -->
+    <div id="welcome-screen">
+        <h1>Culculist</h1>
+        <p>Your all-in-one calculator</p>
+        <div class="author">Shivam Vishwakarma</div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app" class="hidden">
+        <!-- Top Navigation -->
+        <header>
+            <h1>Culculist</h1>
+            <button id="history-btn" class="icon-btn">🕘</button>
+        </header>
+
+        <!-- Calculator Selection -->
+        <div class="calculator-select">
+            <select id="calculator-type">
+                <option value="basic">Basic Calculator</option>
+                <option value="currency">Currency Converter</option>
+                <option value="unit">Unit Converter</option>
+                <option value="discount">Discount Calculator</option>
+                <option value="percentage">Percentage Calculator</option>
+                <option value="tax">Sales Tax Calculator</option>
+                <option value="date">Date Calculator</option>
+                <option value="fuel">Fuel Cost Calculator</option>
+                <option value="gpa">GPA Calculator</option>
+                <option value="bmi">BMI Calculator</option>
+                <option value="hex">Hexadecimal Calculator</option>
+                <option value="loan">Loan Calculator</option>
+                <option value="ovulation">Ovulation Calculator</option>
+                <option value="savings">Savings Calculator</option>
+                <option value="tip">Tip Calculator</option>
+                <option value="unit-price">Unit Price Calculator</option>
+                <option value="world-time">World Time Converter</option>
+            </select>
+        </div>
+
+        <!-- Calculator Container -->
+        <div id="calculator-container">
+            <!-- Basic Calculator -->
+            <div id="basic" class="calculator">
+                <div class="display">
+                    <div class="previous-operand"></div>
+                    <div class="current-operand">0</div>
+                </div>
+                <div class="keypad">
+                    <button class="clear">AC</button>
+                    <button class="operation">±</button>
+                    <button class="operation">%</button>
+                    <button class="operation">÷</button>
+                    <button class="number">7</button>
+                    <button class="number">8</button>
+                    <button class="number">9</button>
+                    <button class="operation">×</button>
+                    <button class="number">4</button>
+                    <button class="number">5</button>
+                    <button class="number">6</button>
+                    <button class="operation">-</button>
+                    <button class="number">1</button>
+                    <button class="number">2</button>
+                    <button class="number">3</button>
+                    <button class="operation">+</button>
+                    <button class="number zero">0</button>
+                    <button class="number">.</button>
+                    <button class="equals">=</button>
+                </div>
+            </div>
+
+            <!-- Currency Converter -->
+            <div id="currency" class="calculator hidden">
+                <h2>Currency Converter</h2>
+                <div class="converter-container">
+                    <div class="input-group">
+                        <input type="number" id="currency-amount" placeholder="Amount">
+                        <select id="currency-from">
+                            <option value="USD">USD</option>
+                            <option value="EUR">EUR</option>
+                            <option value="INR">INR</option>
+                        </select>
+                    </div>
+                    <button id="currency-swap">🔄</button>
+                    <div class="input-group">
+                        <input type="number" id="currency-result" readonly>
+                        <select id="currency-to">
+                            <option value="USD">USD</option>
+                            <option value="EUR" selected>EUR</option>
+                            <option value="INR">INR</option>
+                        </select>
+                    </div>
+                    <button id="currency-convert" class="convert-btn">Convert</button>
+                </div>
+            </div>
+
+            <!-- Unit Converter -->
+            <div id="unit" class="calculator hidden">
+                <h2>Unit Converter</h2>
+                <select id="unit-type">
+                    <option value="length">Length</option>
+                    <option value="weight">Weight</option>
+                    <option value="temperature">Temperature</option>
+                </select>
+                <div class="converter-container">
+                    <div class="input-group">
+                        <input type="number" id="unit-amount" placeholder="Amount">
+                        <select id="unit-from"></select>
+                    </div>
+                    <button id="unit-swap">🔄</button>
+                    <div class="input-group">
+                        <input type="number" id="unit-result" readonly>
+                        <select id="unit-to"></select>
+                    </div>
+                    <button id="unit-convert" class="convert-btn">Convert</button>
+                </div>
+            </div>
+
+            <!-- Discount Calculator -->
+            <div id="discount" class="calculator hidden">
+                <h2>Discount Calculator</h2>
+                <div class="calculator-form">
+                    <div>
+                        <label for="original-price">Original Price</label>
+                        <input type="number" id="original-price" placeholder="Enter original price">
+                    </div>
+                    <div>
+                        <label for="discount-percent">Discount Percentage (%)</label>
+                        <input type="number" id="discount-percent" placeholder="Enter discount percentage">
+                    </div>
+                    <button id="calculate-discount" class="convert-btn">Calculate</button>
+                    <div class="result" id="discount-result">
+                        Discounted Price: $0.00
+                    </div>
+                </div>
+            </div>
+
+            <!-- Percentage Calculator -->
+            <div id="percentage" class="calculator hidden">
+                <h2>Percentage Calculator</h2>
+                <div class="calculator-form">
+                    <div>
+                        <label for="percentage-value">Value</label>
+                        <input type="number" id="percentage-value" placeholder="Enter value">
+                    </div>
+                    <div>
+                        <label for="percentage-percent">Percentage (%)</label>
+                        <input type="number" id="percentage-percent" placeholder="Enter percentage">
+                    </div>
+                    <button id="calculate-percentage" class="convert-btn">Calculate</button>
+                    <div class="result" id="percentage-result">
+                        Result: 0
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sales Tax Calculator -->
+            <div id="tax" class="calculator hidden">
+                <h2>Sales Tax Calculator</h2>
+                <div class="calculator-form">
+                    <div>
+                        <label for="tax-amount">Amount</label>
+                        <input type="number" id="tax-amount" placeholder="Enter amount">
+                    </div>
+                    <div>
+                        <label for="tax-rate">Tax Rate (%)</label>
+                        <input type="number" id="tax-rate" placeholder="Enter tax rate">
+                    </div>
+                    <button id="calculate-tax" class="convert-btn">Calculate</button>
+                    <div class="result" id="tax-result">
+                        Total with Tax: $0.00
+                    </div>
+                </div>
+            </div>
+
+            <!-- Date Calculator -->
+            <div id="date" class="calculator hidden">
+                <h2>Date Calculator</h2>
+                <div class="calculator-form">
+                    <div>
+                        <label for="start-date">Start Date</label>
+                        <input type="date" id="start-date">
+                    </div>
+                    <div>
+                        <label for="end-date">End Date</label>
+                        <input type="date" id="end-date">
+                    </div>
+                    <button id="calculate-date" class="convert-btn">Calculate Difference</button>
+                    <div class="result" id="date-result">
+                        Difference: 0 days
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fuel Cost Calculator -->
+            <div id="fuel" class="calculator hidden">
+                <h2>Fuel Cost Calculator</h2>
+                <div class="calculator-form">
+                    <div>
+                        <label for="distance">Distance (km/miles)</label>
+                        <input type="number" id="distance" placeholder="Enter distance">
+                    </div>
+                    <div>
+                        <label for="fuel-efficiency">Fuel Efficiency (km/L or mpg)</label>
+                        <input type="number" id="fuel-efficiency" placeholder="Enter fuel efficiency">
+                    </div>
+                    <div>
+                        <label for="fuel-price">Fuel Price per Liter/Gallon</label>
+                        <input type="number" id="fuel-price" placeholder="Enter fuel price">
+                    </div>
+                    <button id="calculate-fuel" class="convert-btn">Calculate</button>
+                    <div class="result" id="fuel-result">
+                        Fuel Cost: $0.00
+                    </div>
+                </div>
+            </div>
+
+            <!-- GPA Calculator -->
+            <div id="gpa" class="calculator hidden">
+                <h2>GPA Calculator</h2>
+                <div class="calculator-form">
+                    <div id="courses-container">
+                        <div class="course-row">
+                            <input type="text" class="course-name" placeholder="Course Name">
+                            <select class="course-grade">
+                                <option value="4.0">A</option>
+                                <option value="3.7">A-</option>
+                                <option value="3.3">B+</option>
+                                <option value="3.0">B</option>
+                                <option value="2.7">B-</option>
+                                <option value="2.3">C+</option>
+                                <option value="2.0">C</option>
+                                <option value="1.7">C-</option>
+                                <option value="1.3">D+</option>
+                                <option value="1.0">D</option>
+                                <option value="0.0">F</option>
+                            </select>
+                            <input type="number" class="course-credits" placeholder="Credits" min="1" value="3">
+                        </div>
+                    </div>
+                    <div class="btn-row">
+                        <button id="add-course" class="convert-btn">Add Course</button>
+                        <button id="calculate-gpa" class="convert-btn">Calculate GPA</button>
+                    </div>
+                    <div class="result" id="gpa-result">
+                        GPA: 0.00
+                    </div>
+                </div>
+            </div>
+
+            <!-- BMI Calculator -->
+            <div id="bmi" class="calculator hidden">
+                <h2>BMI Calculator</h2>
+                <div class="calculator-form">
+                    <div>
+                        <label for="height">Height (cm)</label>
+                        <input type="number" id="height" placeholder="Enter height">
+                    </div>
+                    <div>
+                        <label for="weight">Weight (kg)</label>
+                        <input type="number" id="weight" placeholder="Enter weight">
+                    </div>
+                    <button id="calculate-bmi" class="convert-btn">Calculate</button>
+                    <div class="result" id="bmi-result">
+                        BMI: 0 - Normal
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hexadecimal Calculator -->
+            <div id="hex" class="calculator hidden">
+                <h2>Hexadecimal Converter</h2>
+                <div class="calculator-form">
+                    <div>
+                        <label for="decimal-value">Decimal</label>
+                        <input type="number" id="decimal-value" placeholder="Enter decimal number">
+                    </div>
+                    <div>
+                        <label for="hex-value">Hexadecimal</label>
+                        <input type="text" id="hex-value" placeholder="Enter hexadecimal">
+                    </div>
+                    <div>
+                        <label for="binary-value">Binary</label>
+                        <input type="text" id="binary-value" placeholder="Enter binary">
+                    </div>
+                    <div class="btn-row">
+                        <button id="dec-to-hex" class="convert-btn">Dec → Hex/Bin</button>
+                        <button id="hex-to-dec" class="convert-btn">Hex → Dec/Bin</button>
+                        <button id="bin-to-dec" class="convert-btn">Bin → Dec/Hex</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loan Calculator -->
+            <div id="loan" class="calculator hidden">
+                <h2>Loan EMI Calculator</h2>
+                <div class="calculator-form">
+                    <div>
+                        <label for="loan-amount">Loan Amount</label>
+                        <input type="number" id="loan-amount" placeholder="Enter loan amount">
+                    </div>
+                    <div>
+                        <label for="interest-rate">Interest Rate (% per year)</label>
+                        <input type="number" id="interest-rate" placeholder="Enter interest rate">
+                    </div>
+                    <div>
+                        <label for="loan-term">Loan Term (months)</label>
+                        <input type="number" id="loan-term" placeholder="Enter loan term">
+                    </div>
+                    <button id="calculate-loan" class="convert-btn">Calculate</button>
+                    <div class="result" id="loan-result">
+                        Monthly EMI: $0.00
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ovulation Calculator -->
+            <div id="ovulation" class="calculator hidden">
+                <h2>Ovulation Calculator</h2>
+                <div class="calculator-form">
+                    <div>
+                        <label for="last-period">Last Period Start Date</label>
+                        <input type="date" id="last-period">
+                    </div>
+                    <div>
+                        <label for="cycle-length">Average Cycle Length (days)</label>
+                        <input type="number" id="cycle-length" value="28" min="21" max="35">
+                    </div>
+                    <button id="calculate-ovulation" class="convert-btn">Calculate</button>
+                    <div class="result" id="ovulation-result">
+                        Enter your last period date to calculate
+                    </div>
+                </div>
+            </div>
+
+            <!-- Savings Calculator -->
+            <div id="savings" class="calculator hidden">
+                <h2>Savings Calculator</h2>
+                <div class="calculator-form">
+                    <div>
+                        <label for="principal">Initial Investment</label>
+                        <input type="number" id="principal" placeholder="Enter initial amount">
+                    </div>
+                    <div>
+                        <label for="monthly-deposit">Monthly Deposit</label>
+                        <input type="number" id="monthly-deposit" placeholder="Enter monthly deposit">
+                    </div>
+                    <div>
+                        <label for="interest">Annual Interest Rate (%)</label>
+                        <input type="number" id="interest" placeholder="Enter interest rate">
+                    </div>
+                    <div>
+                        <label for="years">Time Period (years)</label>
+                        <input type="number" id="years" placeholder="Enter years">
+                    </div>
+                    <button id="calculate-savings" class="convert-btn">Calculate</button>
+                    <div class="result" id="savings-result">
+                        Future Value: $0.00
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tip Calculator -->
+            <div id="tip" class="calculator hidden">
+                <h2>Tip Calculator</h2>
+                <div class="calculator-form">
+                    <div>
+                        <label for="bill-amount">Bill Amount</label>
+                        <input type="number" id="bill-amount" placeholder="Enter bill amount">
+                    </div>
+                    <div>
+                        <label for="tip-percentage">Tip Percentage (%)</label>
+                        <input type="number" id="tip-percentage" value="15">
+                    </div>
+                    <div>
+                        <label for="num-people">Number of People</label>
+                        <input type="number" id="num-people" value="1" min="1">
+                    </div>
+                    <button id="calculate-tip" class="convert-btn">Calculate</button>
+                    <div class="result" id="tip-result">
+                        Tip: $0.00 | Total: $0.00 | Per Person: $0.00
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unit Price Calculator -->
+            <div id="unit-price" class="calculator hidden">
+                <h2>Unit Price Calculator</h2>
+                <div class="calculator-form">
+                    <div>
+                        <label for="total-price">Total Price</label>
+                        <input type="number" id="total-price" placeholder="Enter total price">
+                    </div>
+                    <div>
+                        <label for="quantity">Quantity/Weight/Volume</label>
+                        <input type="number" id="quantity" placeholder="Enter quantity">
+                    </div>
+                    <button id="calculate-unit-price" class="convert-btn">Calculate</button>
+                    <div class="result" id="unit-price-result">
+                        Unit Price: $0.00
+                    </div>
+                </div>
+            </div>
+
+            <!-- World Time Converter -->
+            <div id="world-time" class="calculator hidden">
+                <h2>World Time Converter</h2>
+                <div class="calculator-form">
+                    <div>
+                        <label for="local-time">Your Time</label>
+                        <input type="datetime-local" id="local-time">
+                    </div>
+                    <div>
+                        <label for="city-select">Select City</label>
+                        <select id="city-select">
+                            <option value="new-york">New York (UTC-5)</option>
+                            <option value="london">London (UTC+0)</option>
+                            <option value="tokyo">Tokyo (UTC+9)</option>
+                            <option value="sydney">Sydney (UTC+10)</option>
+                            <option value="los-angeles">Los Angeles (UTC-8)</option>
+                            <option value="paris">Paris (UTC+1)</option>
+                            <option value="beijing">Beijing (UTC+8)</option>
+                            <option value="dubai">Dubai (UTC+4)</option>
+                        </select>
+                    </div>
+                    <button id="calculate-time" class="convert-btn">Convert</button>
+                    <div class="result" id="time-result">
+                        Time in selected city will appear here
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Panel -->
+        <div id="history-panel" class="hidden">
+            <div class="history-header">
+                <button id="history-back" class="icon-btn">←</button>
+                <h2>Calculation History</h2>
+                <button id="clear-history">Clear All</button>
+            </div>
+            <div id="history-list"></div>
+        </div>
+
+        <!-- AdMob Container -->
+        <div id="ad-container" class="ad-container">
+            <!-- Ad will be inserted here -->
+        </div>
+    </div>
+
+    <!-- AdMob Configuration -->
+    <script>
+        window.ADMOB_CONFIG = {
+            appId: 'ca-app-pub-8567494247728191~6171136573', // Replace with your AdMob App ID
+            bannerAdUnit: 'ca-app-pub-8567494247728191/8632830144' // Replace with your Banner Ad Unit ID
+        };
+    </script>
+    <script src="script.js"></script>
+</body>
+</html> 
