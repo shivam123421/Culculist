@@ -1,0 +1,14 @@
+Culculist
+ Last updated: [10/08/2025]
+
+culculist respects your privacy. This app is designed to perform calculations locally on your device. We do not collect, share, or sell your personal information. The app stores only minimal, local data necessary for functionality: favorites, calculation history (locally stored), theme preference, and cached currency rates if you use the currency converter.
+
+Live currency data: When the Currency Converter fetches live exchange rates, only the public API request is sent to the chosen provider; no personally identifying information is included. Cached rates are stored locally to enable offline use.
+
+Analytics & crash reports: (optional) If analytics or crash reporting are used, disclose provider names and the scope of data collected (e.g. anonymized usage events). If you don’t want analytics, set this to disabled by default.
+
+Permissions: The app does not require location, contacts, or other sensitive permissions to operate. If you add optional features that require permissions, request them at runtime and explain why.
+
+Contact: For questions, bug reports or privacy requests email: [sv5491121@gmail.com](mailto:sv5491121@gmail.com).
+
+ By using this app, you agree to this privacy policy.
